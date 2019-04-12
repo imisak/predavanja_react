@@ -3,10 +3,10 @@ import { Person, Name } from './functional-components';
 
 export const App = () => (
   <>
-    <Person ime={0 + 2} prezime="Perić" />
+    <Person firstName={0 + 2} lastName="Perić" />
     <br />
     <Name ime="Časlav" />
     <br />
-    <Person ime="Ivan" prezime="Ivić" />
+    <Person firstName="Ivan" lastName="Ivić" />
   </>
 );
