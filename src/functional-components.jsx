@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 
 // Most simple component
 export function FunctionalComponent() {
-  return 'a';
+  return "a";
 }
 
 // Arrow functional component that returns a value
-export const ArrowFunctionalComponent = () => 'a';
+export const ArrowFunctionalComponent = () => "a";
 
 // Arrow functional component that does something, then retuns a value
 export const FunctionalComponent2 = () => {
@@ -28,7 +28,8 @@ export const PersonWithShortFragment = ({ firstName, lastName }) => (
 // Component with PROPS and long fragment
 export const Person = ({ firstName, lastName }) => (
   <React.Fragment>
-    <span>{firstName}</span> <span>{lastName}</span>
+    <span>{firstName}</span>
+    <span>{lastName}</span>
   </React.Fragment>
 );
 

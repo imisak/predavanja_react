@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import json from './todo.json';
+import React, { Component } from "react";
+import { Person } from "./functional-components";
 
 export class KlasnaKomponenta extends Component {
   // Default prop values
   static defaultProps = {
-    ime: 'John',
-    prezime: 'Doe'
+    ime: "John",
+    prezime: "Doe"
   };
 
   // State initialisation, with default values
@@ -29,7 +29,6 @@ export class KlasnaKomponenta extends Component {
 
   toggleGodiste = () => {
     let { showGodiste } = this.state;
-
     this.setState({
       showGodiste: !showGodiste
     });
@@ -41,18 +40,16 @@ export class KlasnaKomponenta extends Component {
     const { ime, prezime } = this.props;
     const { godiste, showGodiste } = this.state;
 
-    // Json documents are automatically converted to objects with import
-    console.log(json);
-
     // Dynamic class additionsƒ
-    let loremClassName = 'lorem';
-    if (!showGodiste) loremClassName += ' nema-godista';
+    let loremClassName = "lorem";
+    if (!showGodiste) loremClassName += " nema-godista";
 
     return (
       <div>
+        <Person firstName={this.state.name} />
         <span>
           {ime} {prezime}
-        </span>{' '}
+        </span>{" "}
         {/* Returning false or null will not render aynthing */}
         {/* Conditional rendering - ternary false */}
         {showGodiste ? (
