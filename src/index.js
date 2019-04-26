@@ -1,10 +1,10 @@
 // Default imports
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
 // Named import
-import { App } from './App';
+import { App } from "./App.jsx";
 
 // Entry file for our app
 // Takes the base App component and renders it inside a div called root (in index.html file)
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));

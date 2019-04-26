@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+const uuidv1 = require("uuid/v1");
 
 export class ToDo extends Component {
   state = {
@@ -12,7 +13,7 @@ export class ToDo extends Component {
       .then(json =>
         this.setState({
           todos: json
-        })
+        })  
       )
       .catch(error => console.log(error));
   }
@@ -20,10 +21,10 @@ export class ToDo extends Component {
   toggleFinished = event => {
     const { todos } = this.state;
     const { clickedId } = event.currentTarget.dataset;
-
     const clickedIndex = todos.findIndex(
       item => item.id === parseInt(clickedId)
     );
+    console.log(clickedId)
 
     todos[clickedIndex].completed = !todos[clickedIndex].completed;
 
@@ -32,13 +33,55 @@ export class ToDo extends Component {
     });
   };
 
-  hideCompleted = event => {
-    const { todos } = this.state;
-    const result = todos.filter(item => item.completed !== true);
+  hideCompleted = () => {
+    let { todos } = this.state;
+    if (todos) {
+      todos = todos.filter(item => !item.completed);
+    }
 
-    console.log(result);
     this.setState({
-      todos: result
+      todos
+    });
+  };
+
+  sortCompleted = () => {
+    const { todos } = this.state;
+    todos.sort((a, b) => a.completed - b.completed);
+
+    this.setState({
+      todos
+    });
+  };
+
+  clearAll = () => {
+    this.setState({ todos: [] });
+  };
+
+  newTodo = () => {
+    const { todos, titleTodo } = this.state;
+    let { idNumber } = this.state;
+    idNumber = (Math.floor(Math.random() * 1000)) + 200;
+    const newTodo = {
+      userId: 1,
+      id: idNumber,
+      title: titleTodo,
+      completed: false
+    };
+
+    todos.push(newTodo);
+    this.mainInput.value = "";
+
+    this.setState({
+      todos
+    });
+  };
+
+  updateInputTodo = event => {
+    let { titleTodo } = this.state;
+    titleTodo = event.target.value;
+
+    this.setState({
+      titleTodo
     });
   };
 
@@ -49,33 +92,28 @@ export class ToDo extends Component {
       <main className="main wrapper">
         <header className="header">
           <h1>My To-Do List</h1>
-          <button className="btn">Clear all</button>
+          <button onClick={this.clearAll} className="btn">
+            Clear all
+          </button>
         </header>
         <div className="new">
-          <input className="input" type="text" />
-          <button className="add btn">Add</button>
+          <input
+            ref={ref => (this.mainInput = ref)}
+            onChange={this.updateInputTodo}
+            className="input"
+            type="text"
+          />
+          <button onClick={this.newTodo} className="add btn">
+            Add
+          </button>
         </div>
         <nav>
           <ul className="filter-list">
             <li>
-              <button>Upcoming</button>
+              <button onClick={this.hideCompleted}>Clear completed</button>
             </li>
             <li>
-              <button>All</button>
-            </li>
-            <li>
-              <button>Past</button>
-            </li>
-            <li>
-              <button>Completed</button>
-            </li>
-            <li>
-              <button>Pending</button>
-            </li>
-            <li>
-              <button className="clear_completed" onClick={this.hideCompleted}>
-                Clear completed
-              </button>
+              <button onClick={this.sortCompleted}>Sort completed</button>
             </li>
           </ul>
         </nav>
