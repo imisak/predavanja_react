@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./App.css";
-const uuidv1 = require("uuid/v1");
 
 export class ToDo extends Component {
   state = {
