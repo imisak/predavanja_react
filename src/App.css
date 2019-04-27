@@ -73,3 +73,8 @@ body {
 .filter-list li {
   list-style: none;
 }
+
+.error {
+  color: red;
+  font-weight: bold;
+}

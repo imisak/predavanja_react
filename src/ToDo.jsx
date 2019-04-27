@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+const charMax = 50;
 
 export class ToDo extends Component {
   state = {
@@ -12,7 +13,7 @@ export class ToDo extends Component {
       .then(json =>
         this.setState({
           todos: json
-        })  
+        })
       )
       .catch(error => console.log(error));
   }
@@ -23,7 +24,7 @@ export class ToDo extends Component {
     const clickedIndex = todos.findIndex(
       item => item.id === parseInt(clickedId)
     );
-    console.log(clickedId)
+    console.log(clickedId);
 
     todos[clickedIndex].completed = !todos[clickedIndex].completed;
 
@@ -56,10 +57,21 @@ export class ToDo extends Component {
     this.setState({ todos: [] });
   };
 
-  newTodo = () => {
+  updateInputTodo = event => {
+    let { titleTodo, counter } = this.state;
+    titleTodo = event.target.value;
+    counter = charMax - event.target.value.length;
+
+    this.setState({
+      titleTodo,
+      counter
+    });
+  };
+
+  newTodo = event => {
     const { todos, titleTodo } = this.state;
-    let { idNumber } = this.state;
-    idNumber = (Math.floor(Math.random() * 1000)) + 200;
+    let { idNumber, error, counter } = this.state;
+    idNumber = Math.floor(Math.random() * 1000) + 200;
     const newTodo = {
       userId: 1,
       id: idNumber,
@@ -67,25 +79,28 @@ export class ToDo extends Component {
       completed: false
     };
 
-    todos.push(newTodo);
-    this.mainInput.value = "";
+    if (!titleTodo) {
+      error = "Niste unijeli nista!";
+    }
+
+    if (titleTodo && counter < 0) {
+      error = "Unijeli ste previse znakova!";
+    }
+
+    if (titleTodo && counter > 0) {
+      todos.push(newTodo);
+      this.mainInput.value = "";
+      error = "";
+    }
 
     this.setState({
-      todos
-    });
-  };
-
-  updateInputTodo = event => {
-    let { titleTodo } = this.state;
-    titleTodo = event.target.value;
-
-    this.setState({
-      titleTodo
+      todos,
+      error
     });
   };
 
   render() {
-    const { todos } = this.state;
+    const { todos, counter, error } = this.state;
 
     return (
       <main className="main wrapper">
@@ -95,6 +110,9 @@ export class ToDo extends Component {
             Clear all
           </button>
         </header>
+        <div>
+          Input character left {counter} / {charMax}{" "}
+        </div>
         <div className="new">
           <input
             ref={ref => (this.mainInput = ref)}
@@ -106,6 +124,7 @@ export class ToDo extends Component {
             Add
           </button>
         </div>
+        <div className="error">{error}</div>
         <nav>
           <ul className="filter-list">
             <li>
