@@ -7,8 +7,7 @@ export const App = () => (
   <>
     <BrowserRouter>
       <Route exact path="/" component={ToDo} />
-      <Route path="/details" component={Details} />
-      <ToDo />
+      <Route exact path="/details" component={Details} />
     </BrowserRouter>
   </>
 );
