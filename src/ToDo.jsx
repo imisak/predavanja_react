@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
+import { BrowserRouter, Link } from "react-router-dom";
+import { AppLayout } from "./components";
 const charMax = 50;
 
 export class ToDo extends Component {
@@ -24,7 +26,6 @@ export class ToDo extends Component {
     const clickedIndex = todos.findIndex(
       item => item.id === parseInt(clickedId)
     );
-    console.log(clickedId);
 
     todos[clickedIndex].completed = !todos[clickedIndex].completed;
 
@@ -110,22 +111,22 @@ export class ToDo extends Component {
             Clear all
           </button>
         </header>
-        <div>
-          Input character left {counter} / {charMax}{" "}
-        </div>
-        <div className="new">
-          <input
-            ref={ref => (this.mainInput = ref)}
-            onChange={this.updateInputTodo}
-            className="input"
-            type="text"
-          />
-          <button onClick={this.newTodo} className="add btn">
-            Add
-          </button>
-        </div>
-        <div className="error">{error}</div>
         <nav>
+          <div>
+            Input character left {counter} / {charMax}
+          </div>
+          <div className="new">
+            <input
+              ref={ref => (this.mainInput = ref)}
+              onChange={this.updateInputTodo}
+              className="input"
+              type="text"
+            />
+            <button onClick={this.newTodo} className="add btn">
+              Add
+            </button>
+          </div>
+          <div className="error">{error}</div>
           <ul className="filter-list">
             <li>
               <button onClick={this.hideCompleted}>Clear completed</button>
@@ -142,12 +143,14 @@ export class ToDo extends Component {
                   onClick={this.toggleFinished}
                   data-clicked-id={item.id}
                   key={item.id}
-                  className={`${
-                    item.completed ? "item item-finished" : "item"
-                  } `}
-                >
+                  className={`${item.completed ? "item item-finished" : "item"} `}>
                   <h2 className="item-title">{item.title}</h2>
                   <p className="item-date">{item.id}</p>
+                  <BrowserRouter>
+                    <AppLayout>
+                      <Link to="/details">Detalji</Link>
+                    </AppLayout>
+                  </BrowserRouter>
                 </div>
               ))
             : "No todos right now, check back later."}
