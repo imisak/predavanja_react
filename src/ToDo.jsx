@@ -103,56 +103,56 @@ export class ToDo extends Component {
     const { todos, counter, error } = this.state;
 
     return (
-      <main className="main wrapper">
-        <header className="header">
-          <h1>My To-Do List</h1>
-          <button onClick={this.clearAll} className="btn">
-            Clear all
-          </button>
-        </header>
-        <div>
-          Input character left {counter} / {charMax}{" "}
-        </div>
-        <div className="new">
-          <input
-            ref={ref => (this.mainInput = ref)}
-            onChange={this.updateInputTodo}
-            className="input"
-            type="text"
-          />
-          <button onClick={this.newTodo} className="add btn">
-            Add
-          </button>
-        </div>
-        <div className="error">{error}</div>
-        <nav>
-          <ul className="filter-list">
-            <li>
-              <button onClick={this.hideCompleted}>Clear completed</button>
-            </li>
-            <li>
-              <button onClick={this.sortCompleted}>Sort completed</button>
-            </li>
-          </ul>
-        </nav>
-        <div className="list">
-          {todos
-            ? todos.map(item => (
-                <div
-                  onClick={this.toggleFinished}
-                  data-clicked-id={item.id}
-                  key={item.id}
-                  className={`${
-                    item.completed ? "item item-finished" : "item"
-                  } `}
-                >
-                  <h2 className="item-title">{item.title}</h2>
-                  <p className="item-date">{item.id}</p>
-                </div>
-              ))
-            : "No todos right now, check back later."}
-        </div>
-      </main>
+        <main className="main wrapper">
+          <header className="header">
+            <h1>My To-Do List</h1>
+            <button onClick={this.clearAll} className="btn">
+              Clear all
+            </button>
+          </header>
+          <div>
+            Input character left {counter} / {charMax}{" "}
+          </div>
+          <div className="new">
+            <input
+              ref={ref => (this.mainInput = ref)}
+              onChange={this.updateInputTodo}
+              className="input"
+              type="text"
+            />
+            <button onClick={this.newTodo} className="add btn">
+              Add
+            </button>
+          </div>
+          <div className="error">{error}</div>
+          <nav>
+            <ul className="filter-list">
+              <li>
+                <button onClick={this.hideCompleted}>Clear completed</button>
+              </li>
+              <li>
+                <button onClick={this.sortCompleted}>Sort completed</button>
+              </li>
+            </ul>
+          </nav>
+          <div className="list">
+            {todos
+              ? todos.map(item => (
+                  <div
+                    onClick={this.toggleFinished}
+                    data-clicked-id={item.id}
+                    key={item.id}
+                    className={`${
+                      item.completed ? "item item-finished" : "item"
+                    } `}
+                  >
+                    <h2 className="item-title">{item.title}</h2>
+                    <p className="item-date">{item.id}</p>
+                  </div>
+                ))
+              : "No todos right now, check back later."}
+          </div>
+        </main>
     );
   }
 }
